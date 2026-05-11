@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    image: smart-prescription:latest
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      # Database (external PostgreSQL - required)
+      DATABASE_URL: "${DATABASE_URL:?DATABASE_URL is required}"
+
+      # JWT Auth
+      JWT_SECRET: "${JWT_SECRET:?JWT_SECRET is required}"
+      JWT_EXPIRES_IN: "${JWT_EXPIRES_IN:-7d}"
+
+      # Server
+      PORT: "3000"
+      CORS_ORIGIN: "${CORS_ORIGIN:-*}"
+
+      # PPB Drug Catalog
+      PPB_TOKEN_URL: "${PPB_TOKEN_URL:-https://accounts.dha.go.ke/realms/hie/protocol/openid-connect/token}"
+      PPB_CLIENT_ID: "${PPB_CLIENT_ID:-tiberbu}"
+      PPB_CLIENT_SECRET: "${PPB_CLIENT_SECRET:-sLerTV6UlmD5oXMr5DdMjAVk4nFPHwbK}"
+      PPB_CATALOG_URL: "${PPB_CATALOG_URL:-https://ilm-hie.dha.go.ke/adapter/facade/hie/api/v1/terminology-service}"
+      PPB_PAGE_SIZE: "${PPB_PAGE_SIZE:-500}"
+
+      # ICD-11 Search
+      ICD_BASE_URL: "${ICD_BASE_URL:-https://icd.tiberbu.health/icd/release/11/2025-01/mms}"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

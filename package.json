@@ -1,0 +1,19 @@
+{
+  "name": "smart-prescription",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/server",
+    "packages/react",
+    "packages/widget"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=packages/server",
+    "dev:react": "npm run dev --workspace=packages/react",
+    "build:react": "npm run build --workspace=packages/react",
+    "build:widget": "npm run build --workspace=packages/widget",
+    "build:all": "npm run build:react && npm run build:widget",
+    "db:migrate": "npm run db:migrate --workspace=packages/server",
+    "db:generate": "npm run db:generate --workspace=packages/server"
+  }
+}

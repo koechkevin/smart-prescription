@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      Role     @default(PHYSICIAN)
+  createdAt DateTime @default(now())
+  templates PrescriptionTemplate[]
+}
+
+model PrescriptionTemplate {
+  id               String     @id @default(uuid())
+  templateName     String
+  description      String?
+  icd11Code        String
+  icd11Description String?
+  visibility       Visibility @default(PRIVATE)
+  instructions     String?    @db.Text
+  createdById      String
+  createdBy        User       @relation(fields: [createdById], references: [id])
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  findings         TemplateFinding[]
+  drugItems        TemplateDrugItem[]
+
+  @@index([icd11Code])
+  @@index([createdById])
+  @@index([visibility])
+}
+
+model TemplateFinding {
+  id          String      @id @default(uuid())
+  templateId  String
+  template    PrescriptionTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  finding     String
+  findingType FindingType @default(OBSERVATION)
+  isRequired  Boolean     @default(false)
+  sortOrder   Int         @default(0)
+}
+
+model TemplateDrugItem {
+  id                    String       @id @default(uuid())
+  templateId            String
+  template              PrescriptionTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  drugCode              String
+  drugName              String
+  dosage                String?
+  frequency             String?
+  duration              Int?
+  durationUnit          DurationUnit @default(DAYS)
+  routeOfAdministration String?
+  instructions          String?
+  sortOrder             Int          @default(0)
+
+  @@index([drugCode])
+}
+
+model DrugCatalog {
+  id                 String   @id @default(uuid())
+  genericConceptCode String   @unique
+  genericName        String
+  strength           String?
+  route              String?
+  dosageForm         String?
+  shelfLife          Int?
+  syncedAt           DateTime @default(now())
+
+  @@index([genericName])
+}
+
+enum Role {
+  PHYSICIAN
+  PHARMACIST
+  ADMIN
+}
+
+enum Visibility {
+  PRIVATE
+  PUBLIC
+}
+
+enum FindingType {
+  OBSERVATION
+  SYMPTOM
+  SIGN
+  VITAL
+  LAB_RESULT
+}
+
+enum DurationUnit {
+  DAYS
+  WEEKS
+  MONTHS
+}
