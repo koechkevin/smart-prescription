@@ -14,7 +14,7 @@ interface TemplateListProps {
 }
 
 export function TemplateList({ onCreateNew, onEdit, onUseTemplate, currentUserId }: TemplateListProps) {
-  const { templates, total, loading, page, limit, filters, setFilters, setPage, fetchTemplates, deleteTemplate } =
+  const { templates = [], total, loading, page, limit, filters, setFilters, setPage, fetchTemplates, deleteTemplate } =
     useTemplateStore();
   const [syncing, setSyncing] = useState(false);
 

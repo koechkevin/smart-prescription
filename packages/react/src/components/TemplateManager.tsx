@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ConfigProvider } from 'antd';
 import { initApi } from '../services/api';
 import { TemplateList } from './TemplateList';
@@ -11,9 +11,7 @@ export function TemplateManager({ apiBaseUrl, authToken, onUseTemplate, mode = '
   const [view, setView] = useState<View>('list');
   const [editingTemplate, setEditingTemplate] = useState<PrescriptionTemplate | undefined>();
 
-  useEffect(() => {
-    initApi(apiBaseUrl, authToken);
-  }, [apiBaseUrl, authToken]);
+  initApi(apiBaseUrl, authToken);
 
   const handleCreateNew = () => {
     setEditingTemplate(undefined);
