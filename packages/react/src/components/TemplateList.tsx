@@ -58,9 +58,9 @@ export function TemplateList({ onCreateNew, onEdit, onUseTemplate, currentUserId
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <h2 style={{ margin: 0, fontSize: 20, fontWeight: 600 }}>Prescription Templates</h2>
         <div style={{ display: 'flex', gap: 8 }}>
-          <Button icon={<SyncOutlined spin={syncing} />} onClick={handleSync} loading={syncing}>
+          {/* <Button icon={<SyncOutlined spin={syncing} />} onClick={handleSync} loading={syncing}>
             Sync Drug Catalog
-          </Button>
+          </Button> */}
           <Button type="primary" icon={<PlusOutlined />} onClick={onCreateNew}>
             New Template
           </Button>
