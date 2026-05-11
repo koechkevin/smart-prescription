@@ -3,7 +3,7 @@ services:
     build: .
     image: smart-prescription:latest
     ports:
-      - "${PORT:-3000}:3000"
+      - "${PORT:-6000}:3000"
     environment:
       # Database (external PostgreSQL - required)
       DATABASE_URL: "${DATABASE_URL:?DATABASE_URL is required}"

@@ -5,7 +5,7 @@ import { PrescriptionModal } from './components/PrescriptionModal';
 import type { PrescriptionData } from './types';
 import './index.css';
 
-const DEV_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3OTZlMzhhLTU2MmItNGY5YS04ZDYxLTFmZjBhMjJkMDQyYyIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Nzg0ODM2MTEsImV4cCI6MTc3OTA4ODQxMX0._brsSncy3PDxg0YSBrV97rGlaWfcKtS3ouf6jiYLPf0';
+const DEV_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0YTUzYWZiLTMzNWQtNGZiZC04YjVjLWM5MTM3NjIxZTRiMiIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Nzg0OTYyMTEsImV4cCI6MTc3OTEwMTAxMX0.wmUX9Sfyw7U8f0_tM6b23u2w5o7_IjGkY1IuyzpD3Y4';
 
 if (!localStorage.getItem('token')) {
   localStorage.setItem('token', DEV_TOKEN);
